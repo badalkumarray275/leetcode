@@ -67,37 +67,40 @@ class DisjointSet
 class Solution {
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
+     
         DisjointSet ds(n);
-        int extraEdges = 0;
+        int exEdges =0;
         for(auto it: connections)
         {
-            int u = it[0];
-            int v = it[1];
-            if(ds.findUpar(u) == ds.findUpar(v))
-            {
-                extraEdges++;
-            }
-            else
-            {
-                ds.unionByRank(u,v);
-            }
-        }
-        int cnC =0;
+           int u = it[0];
+           int v = it[1];
+
+           if(ds.findUpar(u) == ds.findUpar(v))
+           {
+               exEdges++;
+           }
+           else
+           {
+             ds.unionBySize(u,v);
+           }
+         }
+         
+         int cnC =0;
          for(int i=0;i<n;i++)
-        {
-            if(ds.findUpar(i)==i)
-            {
-                cnC++;
-            }
-        }    
-      int res = cnC-1;
-        if(extraEdges>= res)
-        {
-            return res;
-        }
-        else 
-        {
-            return -1;
-        }
+         {
+             if(ds.findUpar(i)==i)
+             {
+                 cnC++;
+             }
+         }
+         int res = cnC -1;
+         if(exEdges >= res)
+         {
+             return res;
+         }
+         else 
+         {
+             return -1;
+         }
     }
 };
