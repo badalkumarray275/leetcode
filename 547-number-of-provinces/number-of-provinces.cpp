@@ -67,28 +67,27 @@ class DisjointSet
 class Solution {
 public:
     int findCircleNum(vector<vector<int>>& isConnected) {
-
-        int n = isConnected.size();
-        DisjointSet ds(n);
-        int cnt =0;
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<n;j++)
-            {
-                if(isConnected[i][j]==1)
-                {
-                      ds.unionByRank(i,j);
-                }
-            }
-        }
-
-        for(int i=0;i<n;i++)
-        {
-            if(ds.findUpar(i)==i)
-            {
-                cnt++;
-            }
-        }
-        return cnt;
+         
+       int n = isConnected.size();
+       DisjointSet ds(n);
+       for(int i=0;i<n;i++)
+       {
+           for(int j=0;j<n;j++)
+           {
+               if(isConnected[i][j]==1)
+               {
+                   ds.unionBySize(i,j);
+               }
+           }
+       }
+       int cnt =0;
+       for(int i=0;i<n;i++)
+       {
+           if(ds.findUpar(i)==i)
+           {
+                cnt++;    
+           }
+       }
+       return cnt;
     }
 };
