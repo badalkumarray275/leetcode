@@ -1,27 +1,25 @@
 class Solution {
-public:
-
-    int climbStairs(int n) {
-
-    //    int prev2 =1;
-    //    int prev =1;
-    //    for(int i=2;i<=n;i++)
-    //    {
-    //      int   curr = prev + prev2;
-    //        prev = curr;
-    //        prev2 = prev;
-    //    } 
-    //    return prev;
-    vector<int>dp(n+1,-1);
-    dp[0] =1;
-    dp[1] =1;
-
-    for(int i=2;i<=n;i++)
+    private:
+    int f(int n,vector<int>& dp)
     {
-        dp[i] = dp[i-1] + dp[i-2];
-    }
+        if(n<=1) return 1;
 
-    return dp[n];
-       
+        if(dp[n]!=-1) return dp[n];
+        return dp[n] = f(n-1,dp)+f(n-2,dp);
+    }
+public:
+    int climbStairs(int n) {
+        // --> recursion approach
+
+        // if(n==0) return 1;
+        // if(n==1) return 1;
+        // int left =  climbStairs(n-1);
+        // int right = climbStairs(n-2);
+        // return left+right;
+  
+    //  ---> memoization
+        
+        vector<int> dp(n+1,-1);
+        return f(n,dp);
     }
 };
