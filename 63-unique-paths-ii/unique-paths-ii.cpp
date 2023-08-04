@@ -53,7 +53,7 @@ public:
         // return dp[m-1][n-1];
 
         vector<int>prev(n,0);
-        if(obstacleGrid[0][0]) return 0;
+        if(obstacleGrid[0][0]==1) return 0;
         for(int i=0;i<m;i++)
         {
             vector<int> temp(n,0);
