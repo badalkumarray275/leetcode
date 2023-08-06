@@ -1,41 +1,38 @@
 class Solution {
-    private:
-    int f(int i,int j,vector<vector<int>>& grid,vector<vector<int>>& dp)
+private:
+    int f(int row,int col ,vector<vector<int>>& grid,vector<vector<int>>& dp)
     {
+        if(row ==0 && col ==0) return grid[0][0];
+        if(row <0 || col<0) return 1e9;
        
-         if(i==0 && j==0) return grid[i][j];
-         if(i<0 || j<0) return 1e9;
-         
-         if(dp[i][j] !=-1) return dp[i][j];
+        if(dp[row][col] !=-1) return dp[row][col];
+        int up = grid[row][col] + f(row-1,col,grid,dp);
+        int left = grid[row][col] + f(row,col-1,grid,dp);
 
-         int up =  grid[i][j] + f(i-1,j,grid,dp);
-         int left = grid[i][j] + f(i,j-1,grid,dp);
-
-         return  dp[i][j] = min(up ,left);
-    }
+       return dp[row][col] = min(up,left);
+    }    
 public:
     int minPathSum(vector<vector<int>>& grid) {
-         
-         int m = grid.size();
-         int n = grid[0].size();
-        //  vector<vector<int>> dp(m,vector<int>(n,-1));
+        
+        int m = grid.size();
+        int n = grid[0].size();
+        // vector<vector<int>> dp(m,vector<int>(n,-1));
+        // return f(m-1,n-1,grid,dp);
 
-        //  return f(m-1,n-1,grid,dp);
-
-        // for(int i=0;i<m;i++)
+        // for(int row =0;row<m;row++)
         // {
-        //     for(int j=0;j<n;j++)
+        //     for(int col =0;col<n;col++)
         //     {
-        //         if(i==0 && j==0) dp[i][j] = grid[i][j];
+        //         if(row ==0 && col ==0) dp[row][col] = grid[0][0];
         //         else
         //         {
         //             int up =0,left =0;
-        //             if(i>0) up += grid[i][j] + dp[i-1][j];
+        //             if(row-1>=0) up += grid[row][col] + dp[row-1][col];
         //             else up += 1e9;
-        //             if(j>0) left += grid[i][j] + dp[i][j-1];
+        //             if(col-1>=0) left += grid[row][col] + dp[row][col-1];
         //             else left += 1e9;
 
-        //             dp[i][j] = min(up,left);
+        //             dp[row][col] = min(up,left); 
         //         }
         //     }
         // }
@@ -43,26 +40,25 @@ public:
 
         vector<int>prev(n,0);
 
-        for(int i=0;i<m;i++)
+        for(int row=0;row<m;row++)
         {
-            vector<int> temp(n,0);
-            for(int j=0;j<n;j++)
+            vector<int>temp(n,0);
+            for(int col =0;col<n;col++)
             {
-               if(i==0 && j==0) temp[j] = grid[i][j];
-               else
-               {
-                   int up=0,left=0;
-                   if(i>0) up += grid[i][j] + prev[j];
-                   else up += 1e9;
-                   if(j>0) left += grid[i][j] + temp[j-1];
-                   else left +=  1e9;
+                if(row ==0 && col ==0) temp[col] = grid[0][0];
+                else
+                {
+                    int up =0,left =0;
+                    if(row-1>=0) up += grid[row][col] + prev[col];
+                    else up += 1e9;
+                    if(col-1>=0) left += grid[row][col] + temp[col-1];
+                    else left += 1e9;
 
-                   temp[j] = min(up,left);
-               }
+                   temp[col] = min(up,left); 
+                }
             }
             prev = temp;
         }
-       
-       return prev[n-1];
+        return prev[n-1];
     }
 };
