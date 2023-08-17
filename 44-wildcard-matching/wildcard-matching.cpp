@@ -1,28 +1,34 @@
 class Solution {
+    private:
 
-    bool f(int i,int j,string &s, string &p,vector<vector<int>>& dp)
+    int f(int i,int j,string s, string p,vector<vector<int>>& dp)
     {
-        if(i==0 && j==0) return true;
-        if(i==0 && j>0) return false;
-
-        if(j==0 && i>0) 
+        if(i==0 && j==0) return   true;
+        if(i==0 && j>0) return  false;
+        if(i>0 && j==0) 
         {
-            for(int x=1;x<=i;x++)
+            for(int x = 0;x<=i;x++)
             {
-                if(s[i-1] != '*') return false;
+                if(s[i-1]!='*') return false;
             }
             return true;
         }
-        if(dp[i][j] !=-1) return dp[i][j];
-
-        if(s[i-1] == p[j-1] || s[i-1] == '?') return dp[i][j] =  f(i-1,j-1,s,p,dp);
         
-        if(s[i-1] == '*') return dp[i][j] = f(i-1,j,s,p,dp) | f(i,j-1,s,p,dp);
+        if(dp[i][j] != -1) return dp[i][j];
+        if(s[i-1] == p[j-1] || s[i-1] == '?')
+        {
+           return dp[i][j] =  f(i-1,j-1,s,p,dp);
+        }
+
+        if(s[i-1] == '*')
+        {
+            return dp[i][j] = f(i-1,j,s,p,dp) | f(i,j-1,s,p,dp);
+        }
 
         return  dp[i][j] = false;
     }
 public:
-bool isAllStars(string & S1, int i) {
+  bool isAllStars(string & S1, int i) {
 
 
   for (int j = 1; j <= i; j++) {
