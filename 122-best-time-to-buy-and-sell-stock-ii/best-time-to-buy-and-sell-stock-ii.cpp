@@ -25,29 +25,23 @@ public:
         //    vector<vector<int>>dp(n+1,vector<int>(2,0));
         //    return f(0,1,prices,dp,n);
         
-        vector<int>ahead(2,0),curr(2,0);
-         ahead[0] =0;
-          ahead[1] =0;
-
+        // vector<int>ahead(2,0),curr(2,0);
+          int aheadNotBuy =0;
+          int   aheadBuy  =0;
+ 
           for(int ind =n-1;ind>=0;ind--)
           {
               for(int buy=0;buy<2;buy++)
               {
-                    int profit =0;
-                     if(buy)
-                    {
-                          profit =  max(-prices[ind] + ahead[0],0 + ahead[1]);
-
-                     }
-                    else
-                      {
-                         profit = max(prices[ind] + ahead[1], 0 + ahead[0]);
-                      }
-                      curr[buy] = profit;
+                   
+                   int currNotBuy = max(prices[ind] + aheadBuy ,0 +aheadNotBuy);
+                   int  currBuy = max(-prices[ind] +  aheadNotBuy,0+aheadBuy);
+                   aheadNotBuy = currNotBuy;
+                   aheadBuy = currBuy;
               }
-              ahead = curr;
+            
           }
-          return ahead[1];
+          return aheadBuy;
 
     }
 };
