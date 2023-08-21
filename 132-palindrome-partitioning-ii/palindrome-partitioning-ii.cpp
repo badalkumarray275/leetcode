@@ -28,7 +28,7 @@ public:
         int n = s.size();
         vector<int>dp(n+1,0);
         // return f(0, n, s,dp) - 1;
-        
+         dp[n] =0;
         for(int i=n-1;i>=0;i--)
         {
             int minCost = 1e9;
