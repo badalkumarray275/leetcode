@@ -22,18 +22,20 @@ class Solution {
 public:
     int maximalRectangle(vector<vector<char>>& mat) {
         
-        int n = mat.size();
-        int m = mat[0].size();
-            int maxArea = 0;
-    vector<int> height(m, 0);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            if (mat[i][j] == '1') height[j]++;
-            else height[j] = 0;
-        }
-        int area = largestRectangleArea(height);
-        maxArea = max(maxArea, area);
-    }
-    return maxArea;
+           int n =  mat.size();
+           int m = mat[0].size();
+           int maxArea = INT_MIN;
+           vector<int>height(m,0);
+           for(int i=0;i<n;i++)
+           {
+               for(int j =0;j<m;j++)
+               {
+                   if(mat[i][j] == '1') height[j]++;
+                   else height[j] =0;
+               }
+               int area = largestRectangleArea(height);
+               maxArea = max(maxArea,area);
+           }
+           return maxArea;
     }
 };
