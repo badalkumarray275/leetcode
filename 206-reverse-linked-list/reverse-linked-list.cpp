@@ -49,16 +49,32 @@ public:
          
     // }
 
-//  recursive approach 
+//  recursive approach -1
 
-     ListNode* reverseList(ListNode* head) {
+    //  ListNode* reverseList(ListNode* head) {
       
-      if(head == NULL || head->next == NULL) return head;
+    //   if(head == NULL || head->next == NULL) return head;
 
-       ListNode* rest_head = reverseList(head->next);
-       ListNode* rest_tail = head->next;
-       rest_tail->next = head;
-       head->next = NULL;
-       return rest_head;
+    //    ListNode* rest_head = reverseList(head->next);
+    //    ListNode* rest_tail = head->next;
+    //    rest_tail->next = head;
+    //    head->next = NULL;
+    //    return rest_head;
+    // }
+
+//  recursive approach -2
+   ListNode* reverse(ListNode* curr,ListNode* prev)
+   {
+       if(curr == NULL) return prev;
+
+        ListNode* temp = curr->next;
+        curr->next = prev;
+        return  reverse(temp,curr);
+
+   }
+      ListNode* reverseList(ListNode* head) {
+      
+          ListNode* temp = reverse(head,NULL);
+          return temp;
     }
 };
