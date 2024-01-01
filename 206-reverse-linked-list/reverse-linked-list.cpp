@@ -33,19 +33,32 @@ public:
 
 //  using two pointer approach
 
-    ListNode* reverseList(ListNode* head) {
+    // ListNode* reverseList(ListNode* head) {
       
-      ListNode* prev = NULL;
-      ListNode* curr = head;
+    //   ListNode* prev = NULL;
+    //   ListNode* curr = head;
 
-     while(curr != NULL)
-     {
-         ListNode* temp = curr->next;
-         curr->next = prev;
-         prev = curr;
-         curr = temp;
-     }
-     return prev;
+    //  while(curr != NULL)
+    //  {
+    //      ListNode* temp = curr->next;
+    //      curr->next = prev;
+    //      prev = curr;
+    //      curr = temp;
+    //  }
+    //  return prev;
          
+    // }
+
+//  recursive approach 
+
+     ListNode* reverseList(ListNode* head) {
+      
+      if(head == NULL || head->next == NULL) return head;
+
+       ListNode* rest_head = reverseList(head->next);
+       ListNode* rest_tail = head->next;
+       rest_tail->next = head;
+       head->next = NULL;
+       return rest_head;
     }
 };
