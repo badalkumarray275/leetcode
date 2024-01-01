@@ -13,21 +13,39 @@ public:
 //  iterative approach
 
 
-    ListNode* reverseList(ListNode* head) {
+    // ListNode* reverseList(ListNode* head) {
         
-     vector<int>arr;
-      for(ListNode* curr = head;curr != NULL;curr = curr->next)
-      {
-          arr.push_back(curr->val);
+    //  vector<int>arr;
+    //   for(ListNode* curr = head;curr != NULL;curr = curr->next)
+    //   {
+    //       arr.push_back(curr->val);
 
-      }
-      for(ListNode* curr = head;curr != NULL;curr = curr->next)
-      {
-          curr->val = arr.back();
-          arr.pop_back();
+    //   }
+    //   for(ListNode* curr = head;curr != NULL;curr = curr->next)
+    //   {
+    //       curr->val = arr.back();
+    //       arr.pop_back();
 
-      }
-      return head;
+    //   }
+    //   return head;
 
+    // }
+
+//  using two pointer approach
+
+    ListNode* reverseList(ListNode* head) {
+      
+      ListNode* prev = NULL;
+      ListNode* curr = head;
+
+     while(curr != NULL)
+     {
+         ListNode* temp = curr->next;
+         curr->next = prev;
+         prev = curr;
+         curr = temp;
+     }
+     return prev;
+         
     }
 };
